@@ -1,1 +1,26 @@
-/build/
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Build / Output
+target/
+bin/
+out/
+*.war
+
+# OS 임시파일
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.log
+
+# Environment / DB
+*.properties
+*.env

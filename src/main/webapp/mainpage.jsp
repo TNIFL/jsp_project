@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>메인</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
+    <!-- 헤더 영역 -->
+    <!-- header.jsp 내용이 여기에 들어갑니다 -->
+
+    <div>
+        <h1>제품 비교 사이트</h1>
+        <p>전자 제품을 비교하는 사이트입니다.</p>
+    </div>
+
+    <!-- 푸터 영역 -->
+    <!-- footer.jsp 내용이 여기에 들어갑니다 -->
+<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
+    <!-- 헤더 영역 -->
+    <!-- header.jsp 내용이 여기에 들어갑니다 -->
+
+
+    <!-- 푸터 영역 -->
+    <!-- footer.jsp 내용이 여기에 들어갑니다 -->
+<jsp:include page="footer.jsp" />
 </body>
 </html>
