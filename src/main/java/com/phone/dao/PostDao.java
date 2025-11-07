@@ -21,12 +21,9 @@ public class PostDao {
 		return null;	//나중에 Post 객체로 변경
 	}
 	
-	public void createPost(int postId, String userId, String title, String content, String timestamp, int clickCount) {
+	public boolean createPost(int postId, String userId, String title, String content, String timestamp, int clickCount) {
 		//DB에 저장
-	}
-	
-	public void readPost(int postId) {
-		//DB에서 불러오기
+		return false;	//성공 여부 반환
 	}
 	
 	public void updatePost(int postId, String title, String content) {
@@ -36,5 +33,20 @@ public class PostDao {
 	public void deletePost(int postId) {
 		//DB에서 삭제
 	}
+	
+	public List<Post> getPostsByUserNickname(String nickname) {
+		//특정 사용자의 게시글 조회
+		return null;	//나중에 List<Post>으로 변경
+	}
+	
+	public void incrementClickCount(int postId) {
+		//조회수 증가
+	}
+	
+	public List<Post> getPostsByTitle(String title) {
+		//제목으로 게시글 조회
+		return null;	//나중에 List<Post>으로 변경
+	}
+	
 	
 }

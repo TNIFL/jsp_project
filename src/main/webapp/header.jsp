@@ -11,11 +11,12 @@
         <h2>제품 비교 사이트</h2>
         <nav>
             <ul>
-                <li><a href="mainpage.jsp">홈</a></li>
-                <li><a href="compare_page.jsp">제품 비교</a></li>
-                <li><a href="community_main.jsp">커뮤니티</a></li>
-                <li><a href="login.jsp">로그인</a></li>
-                <li><a href="signup.jsp">회원가입</a></li>
+                <li><a href="controller.jsp?action=mainpage">홈</a></li>
+                <li><a href="controller.jsp?action=list">제품 리스트</a></li>
+                <li><a href="controller.jsp?action=compare">제품 비교</a></li>
+                <li><a href="controller.jsp?action=community">커뮤니티</a></li>
+                <li><a href="controller.jsp?action=login">로그인</a></li>
+                <li><a href="controller.jsp?action=signup">회원가입</a></li>
             </ul>
         </nav>
         <hr>

@@ -24,3 +24,8 @@ Thumbs.db
 # Environment / DB
 *.properties
 *.env
+/build/
+
+# lib
+*.jar
+src/main/webapp/WEB-INF/lib/*.jar

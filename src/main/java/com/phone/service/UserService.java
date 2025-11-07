@@ -23,7 +23,14 @@ public class UserService {
 	
 	public boolean loginUser(String userId, String password) {
 		//UserDao의 getUserById 메서드를 이용해 user의 데이터 가져오고 조회
+		//세션에 사용자 정보 저장
 		//여기서 로그인 비즈니스 로직 작성
+		return false;
+	}
+	
+	public boolean logoutUser(String userId) {
+		//여기서 로그아웃 비즈니스 로직 작성
+		//세션에서 사용자 정보 제거
 		return false;
 	}
 	

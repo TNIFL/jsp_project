@@ -39,5 +39,14 @@ public class PhoneDao {
 		return false;	//db에서 값 제거 후 결과따라 변경
 	}
 	
+	public List<Phone> getPhonesByBrand(String brand) {
+		//특정 브랜드의 핸드폰 조회
+		return null;	//나중에 List<Phone>으로 변경
+	}
+	
+	public List<Phone> getPhonesByPriceRange(int minPrice, int maxPrice) {
+		//특정 가격대의 핸드폰 조회
+		return null;	//나중에 List<Phone>으로 변경
+	}
 	
 }

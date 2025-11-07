@@ -34,4 +34,17 @@ public class PostService {
 	public void deletePost(int postId) {
 		postDao.deletePost(postId);
 	}
+	//특정 사용자의 게시글만 조회
+	public List<Post> getPostsByUserNickname(String nickname) {
+		return postDao.getPostsByUserNickname(nickname);
+	}
+	//조회수 증가
+	public void incrementClickCount(int postId) {
+		postDao.incrementClickCount(postId);
+	}
+	//게시글 제목으로 조회
+	public List<Post> getPostsByTitle(String title) {
+		return postDao.getPostsByTitle(title);
+	}
+	
 }

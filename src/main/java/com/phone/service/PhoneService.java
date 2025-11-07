@@ -42,5 +42,12 @@ public class PhoneService {
 	public void findCostEfffectivePhoneLogic() {
 		//여기서 가성비 핸드폰 찾기 비즈니스 로직 작성
 	}
-	
+	//브랜드별 필터링
+	public List<Phone> filterPhonesByBrand(String brand) {
+		return phoneDao.getPhonesByBrand(brand);
+	}
+	//가격대별 필터링
+	public List<Phone> filterPhonesByPriceRange(int minPrice, int maxPrice) {
+		return phoneDao.getPhonesByPriceRange(minPrice, maxPrice);
+	}
 }
