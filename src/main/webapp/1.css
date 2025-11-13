@@ -1,0 +1,51 @@
+/*메뉴 색상*/
+.menu {
+  background-color: rgb(102, 102, 255);
+  padding: 10px;
+  /*구현 중*/
+  /*background : -webkit-linear-gradient(top,rgb(102, 102, 255),white);*/
+  
+}
+/*메뉴 ul 스타일*/
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+/*메뉴 li 스타일*/
+.menu li {
+	background-color: rgb(102, 102, 255,0.5);
+  padding : 10px;
+  border : 1px groove #f4f4f4;
+  border-radius : 7px;
+  box-shadow : 0px 0px 1px 1px black;
+}
+/*메뉴 a 스타일*/
+.menu a {
+  color: white;
+  text-decoration: none;
+}
+
+/*메뉴 모든 파일의 body 스타일*/
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+/*li 스타일링*/
+.margin-1{
+	margin : 1px;
+}
+/*로그인과 회원 가입을 나누기 위한 margin-left 900px*/
+.margin-50{   
+	margin-left : 900px;
+}
+/*li 폰트*/
+.container {
+  padding: 50px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
