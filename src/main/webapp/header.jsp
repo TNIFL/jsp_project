@@ -9,16 +9,17 @@
     <!-- 사이트 공통 헤더 -->
     <header>
         <h2>제품 비교 사이트</h2>
-        <nav>
-            <ul>
-                <li><a href="controller.jsp?action=mainpage">홈</a></li>
-                <li><a href="controller.jsp?action=list">제품 리스트</a></li>
-                <li><a href="controller.jsp?action=compare">제품 비교</a></li>
-                <li><a href="controller.jsp?action=community">커뮤니티</a></li>
-                <li><a href="controller.jsp?action=login">로그인</a></li>
-                <li><a href="controller.jsp?action=signup">회원가입</a></li>
-            </ul>
-        </nav>
+                <div class="menu">
+        <ul>
+            <li class = "margin-1"><a href="mainpage.jsp">홈</a></li>
+            <li class = "margin-1"><a href="detail_page.jsp">제품 상세</a></li>
+            <li class = "margin-1"><a href="compare_page.jsp">제품 비교</a></li>
+            <li class = "margin-1"><a href="find_page.jsp">가성비 찾기</a></li>
+            <li class = "margin-1"><a href="community_main.jsp">커뮤니티</a></li>
+            <li class="margin-50"><a href="login.jsp">로그인</a></li>
+            <li class = "margin-1"><a href="signup.jsp">회원가입</a></li>
+        </ul>
+        </div>
         <hr>
     </header>
 </body>
