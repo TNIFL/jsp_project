@@ -37,13 +37,73 @@ public class PhoneService {
 	public boolean deletePhone(int id) {
 		return phoneDao.deletePhone(id);
 	}
-	//비즈니스 로직 예시
-	public void comparePhoneLogic() {
-		//여기서 핸드폰 비교 비즈니스 로직 작성
+	// 핸드폰 비교 비즈니스 로직
+	// id1, id2로 각각의 핸드폰 phone_id 를 가져와 비교
+	// 더 좋은 제품의 phone_id 를 반환함
+	public Phone comparePhoneLogic(int id1, int id2) {
+	    Phone phone1 = phoneDao.getPhoneById(id1);
+	    Phone phone2 = phoneDao.getPhoneById(id2);
+	    // 이 if문은 핸드폰 하나라도 없을 경우를 찾기 위해 존재
+	    // 하지만 굳이 여기서 해야할까?
+	    // 그냥 메서드 호출하기 전에 존재하는지 검사 한 후에 메서드로 넘기는게 좋지 않을까?
+	    // 일단 주석처리하고 추후에 메서드 호출 전 검사 해봐야함
+	    
+	    
+	    if (phone1 == null || phone2 == null) {
+	    	System.out.println("하나 이상의 핸드폰을 찾을 수 없습니다.");
+	    	return null;
+	    }
+	    
+	    double score1 = calculatePhoneScore(phone1);
+	    double score2 = calculatePhoneScore(phone2);
+	    
+	    return (score1 >= score2) ? phone1 : phone2;	// score1 이 score2 보다 크거나 같을 시 phone1 리턴 / 아니라면 phone2 리턴
+	    
 	}
-	//가성비 핸드폰 찾기 비즈니스 로직 예시
-	public void findCostEfffectivePhoneLogic() {
-		//여기서 가성비 핸드폰 찾기 비즈니스 로직 작성
+	//가성비 핸드폰 찾기 비즈니스 로직
+	// 가성비의 기준은 점수가 높으면서 가격은 낮은 제품
+	// 가성비 지수 = 점수 / 가격
+	// 예
+	// 폰 A : 점수 80, 가격 1,600,000 -> 80 / 1,600,000 = 0.00005
+	// 폰 B : 점수 75, 가격 1,000,000 -> 75 / 1,000,000 = 0.000075
+	// 가성비 지수는 B 가 더 높음 -> B 가 가성비 더 좋은 폰
+	public Phone findCostEfffectivePhoneLogic(int minPrice, int maxPrice) {
+		// min, max 사이에 있는 폰들 가져옴
+		// phoneDao.getPhonesByPriceRange(min, max) 를 통해 가져옴
+		// 각 폰 마다 calculatePhoneScore(phone) 으로 점수 계산
+		// score / price 로 가성비 지수 계산
+		// 그 중 점수가 높은 폰 리턴
+		// 우선 가격으로 1차 필터링
+		List<Phone> list = phoneDao.getPhonesByPriceRange(minPrice, maxPrice);
+		if (list == null || list.isEmpty()) {
+			return null;
+		}
+		Phone best = null;
+		
+		// double 자료형이 가질 수 있는 가장 작은 값
+		// 가장 작은 값을 기준으로 잡아야지 나중에 비교하면서 갱신 가능
+		// 맨 처음 ratio는 무조건 bestRatio 보다 크니까 최고값 후보로 등록됨
+		// 이후 값들이 크면 계속 갱신
+		double bestRatio = Double.NEGATIVE_INFINITY;
+		
+		for (Phone p : list) {
+			double score = calculatePhoneScore(p);
+			double price = p.getPrice();
+			// 가격이 0원 이거나 이상한 값은 스킵
+			if (price <= 0) {
+				continue;
+			}
+			// 가성비 지수 계산
+			double ratio = score / price;
+			
+			// 가성비 지수 높은걸로 갱신
+			if (ratio > bestRatio) {
+				bestRatio = ratio;
+				// 반환 할 Phone 객체
+				best = p;
+			}
+		}
+		return best;
 	}
 	/*
 	===============================================================

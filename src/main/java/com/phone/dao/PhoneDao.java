@@ -23,7 +23,7 @@ public class PhoneDao {
 		// Phone 객체를 담을 리스트 생성
 		List<Phone> list = new ArrayList<>();
 		// phone 테이블의 모든 컬럼을 phone_id 기준으로 내림차순 정렬하여 조회
-        String sql = "SELECT * FROM phone ORDER BY phone_id DESC";
+        String sql = "SELECT * FROM phones ORDER BY phone_id DESC";
         // DB 연결 및 쿼리 실행
         // try-with-resources 문을 사용하여 자원 자동 해제 / try ( ... ) { }
         // Connection conn에 DB.getConnection 을 사용하여 DB 연결을 하는 객체 생성
@@ -76,7 +76,7 @@ public class PhoneDao {
     	// phone 테이블에서 특정 phone_id 에 해당하는 행 조회
     	// ? 는 PreparedStatement 에서 나중에 값 설정
     	// ? 에 getPhoneById의 파라미터인 int id 값 들어감
-        String sql = "SELECT * FROM phone WHERE phone_id = ?";
+        String sql = "SELECT * FROM phones WHERE phone_id = ?";
         // DB 연결 및 쿼리 실행
         // try-with-resources 문을 사용하여 자원 자동 해제
         // Connection conn에 DB.getConnection 을 사용하여 DB 연결을 하는 객체 생성
@@ -124,7 +124,7 @@ public class PhoneDao {
     // 저장 성공 여부를 boolean 으로 반환
     public boolean createPhone(Phone phone) {
     	// phone_id 는 AUTO_INCREMENT 로 자동 생성되므로 제외
-    	String sql = "INSERT INTO phone (" +
+    	String sql = "INSERT INTO phones (" +
                 "brand, model, price, processor, ram, display_info, display_inch, "
                 + "camera, battery, storage_gb, year_of_release, connectivity, "
                 + "special_features, weight, size) "
@@ -168,7 +168,7 @@ public class PhoneDao {
     	// ? 에는 updatePhone의 파라미터인 Phone phone 객체의 각 필드 값 들어감
     	// phone_id 는 WHERE 절에서 사용
     	// 나머지 필드들은 SET 절에서 사용
-    	String sql = "UPDATE phone SET " +
+    	String sql = "UPDATE phones SET " +
                 "brand = ?, model = ?, price = ?, processor = ?, ram = ?, "
                 + "display_info = ?, display_inch = ?, camera = ?, battery = ?, "
                 + "storage_gb = ?, year_of_release = ?, connectivity = ?, "
@@ -216,7 +216,7 @@ public class PhoneDao {
 		// phone_id 가 특정 id 인 행 삭제
 		// ? 는 PreparedStatement 에서 나중에 값 설정
 		// ? 에 deletePhone의 파라미터인 int id 값 들어감
-		String sql = "DELETE FROM phone WHERE phone_id = ?";
+		String sql = "DELETE FROM phones WHERE phone_id = ?";
 		try (Connection conn = DB.getConnection();
 			 PreparedStatement ps = conn.prepareStatement(sql)) {
 			// sql 쿼리 안에 첫번째 ? 에 id 값 설정
@@ -240,7 +240,7 @@ public class PhoneDao {
 		List<Phone> list = new ArrayList<>();
 		// phone 테이블에서 특정 brand 에 해당하는 행들을
 		// price 낮은 순 으로 정렬하여 조회
-		String sql = "SELECT * FROM phone WHERE brand = ? ORDER BY price ASC";
+		String sql = "SELECT * FROM phones WHERE brand = ? ORDER BY price ASC";
 		try (Connection conn = DB.getConnection();
 			 PreparedStatement ps = conn.prepareStatement(sql)) {
 			// sql 쿼리 안에 첫번째 ? 에 brand 값 설정
@@ -281,7 +281,7 @@ public class PhoneDao {
 		// phone 테이블에서 price 가 minPrice 와 maxPrice 사이인
 		// 핸드폰들 조회
 		// price 낮은 순 으로 정렬하여 조회
-		String sql = "SELECT * FROM phone WHERE price BETWEEN ? AND ? ORDER BY price ASC";
+		String sql = "SELECT * FROM phones WHERE price BETWEEN ? AND ? ORDER BY price ASC";
 		
 		try (Connection conn = DB.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql)) {

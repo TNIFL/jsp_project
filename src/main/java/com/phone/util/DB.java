@@ -13,9 +13,11 @@ public class DB {
 	// 테이블 양식은 추후 제공 예정
 	
 	// .env 파일에서 설정한 환경 변수로 DB 접속 정보 불러오기
-	private static final String DB_URL = System.getenv("DB_URL");
-	private static final String DB_USER = System.getenv("DB_USER");
-	private static final String DB_PASS = System.getenv("DB_PASS");
+	// 하드코딩으로 변경
+	// 추후 dotenv로 변경 해야함
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/ecompare?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
+	private static final String DB_USER = "root";
+	private static final String DB_PASS = "1234";
 	
     private static final String URL = DB_URL;
     // USER 와 PASS 도 본인 환경에 맞게 수정
