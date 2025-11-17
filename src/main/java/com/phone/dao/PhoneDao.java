@@ -62,6 +62,7 @@ public class PhoneDao {
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         // 완성된 리스트 반환
     	return list;
@@ -181,7 +182,6 @@ public class PhoneDao {
     	// ps.executeUpdate() : UPDATE 문을 실제 DB 에서 실행
     	try (Connection conn = DB.getConnection();
     	     PreparedStatement ps = conn.prepareStatement(sql)) {
-
     	        ps.setString(1,  phone.getBrand());
     	        ps.setString(2,  phone.getModel());
     	        ps.setInt(3,     phone.getPrice());
@@ -206,8 +206,8 @@ public class PhoneDao {
                 return rows > 0; // 영향을 받은 행이 1개 이상이면 true 반환
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return false;
 	    }
+    	return false;
     }
 	// 핸드폰 삭제
     // id 로 특정 핸드폰 삭제
