@@ -19,11 +19,18 @@ public class PhoneService {
 	private final PhoneDao phoneDao = new PhoneDao();
 	//핸드폰 전체 조회
 	public List<Phone> getAllPhones() {
-		return phoneDao.getAllPhones();
+		List<Phone> list = phoneDao.getAllPhones();
+		// 리스트에 폰들 넣고
+		// 점수 계산해서 각 폰에 setScore
+		applyScore(list);
+		return list;
 	}
 	//핸드폰 아이디로 조회
 	public Phone getPhoneById(int id) {
-		return phoneDao.getPhoneById(id);
+		Phone phone = phoneDao.getPhoneById(id);
+		// 단일 핸드폰에도 점수 적용
+		applyScore(phone);
+		return phone;
 	}
 	//핸드폰 삽입
 	public void insertPhone(Phone phone) {
@@ -416,5 +423,32 @@ public class PhoneService {
 	//가격대별 필터링
 	public List<Phone> filterPhonesByPriceRange(int minPrice, int maxPrice) {
 		return phoneDao.getPhonesByPriceRange(minPrice, maxPrice);
+	}
+	
+	// 하나의 핸드폰에 점수 적용
+	private void applyScore(Phone phone) {
+		if (phone == null) {
+			return;
+		}
+		// 점수 계산 및 적
+		double rawScore = calculatePhoneScore(phone);
+		// 반올림하여 정수로 변환
+		int finalScore = (int) Math.round(rawScore);
+		// 핸드폰 객체에 점수 설정
+		phone.setScore(finalScore);;
+	}
+	
+	// 핸드폰 리스트에 점수 적용
+	// applyScore(Phone phone) 메서드 오버로딩
+	private void applyScore(List<Phone> list) {
+		if (list == null || list.isEmpty()) {
+			return;
+		}
+		// applyScore(Phone phone) 메서드 재사용
+		// 리스트에 존재하는 각각의 핸드폰을 applyScore 메서드로 전달
+		// applyScore 메서드는 알아서 각 핸드폰마다 점수를 매겨줄거임
+		for (Phone p : list) {
+			applyScore(p);
+		}
 	}
 }

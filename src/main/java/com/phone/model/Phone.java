@@ -7,6 +7,7 @@ public class Phone {
     private int storage;         	// GB
     private int ram;             	// GB
     private int battery;         	// mAh
+    private int score;		   		// 종합 점수(db에 없음)
     private double displayInch;  	// 인치
     private double weight;       	// g
 
@@ -18,6 +19,8 @@ public class Phone {
     private String connectivity; 	// 5G, Wi-Fi 6 등
     private String specialFeatures;	// 폴더블 등 특수 기능
     private String size;         	// "153.9×67.1×7.6" 등 문자열 형태
+    private String imagePath;		// 이미지 경로
+    private String detail_description; // 상세 설명
 
 	// 기본 생성자
     public Phone() {}
@@ -25,7 +28,8 @@ public class Phone {
     // 생성자
     public Phone(int phoneId, int yearOfRelease, int price, int storage, int ram, int battery,
                  double displayInch, double weight, 
-                 String brand, String model, String processor, String displayInfo, String cameraInfo, String connectivity, String specialFeatures, String size) {
+                 String brand, String model, String processor, String displayInfo, String cameraInfo,
+                 String connectivity, String specialFeatures, String size, String imagePath, String detail_description) {
         this.phoneId = phoneId;
         this.yearOfRelease = yearOfRelease;
         this.price = price;
@@ -42,6 +46,8 @@ public class Phone {
         this.connectivity = connectivity;
         this.specialFeatures = specialFeatures;
         this.size = size;
+        this.imagePath = imagePath;
+        this.detail_description = detail_description;
     }
 
     // Getters and Setters
@@ -172,5 +178,28 @@ public class Phone {
     public void setSize(String size) {
         this.size = size;
     }
+    
+    public String getImagePath() {
+		return imagePath;
+	}
+    
+    public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+    }
 
+    public String getDetail_description() {
+    	return detail_description;
+    }
+    
+    public void setDetail_description(String detail_description) {
+    	this.detail_description = detail_description;
+    }
+    
+    public int getScore() {
+    	return score;
+    }
+    
+    public void setScore(int score) {
+    	this.score = score;
+    }
 }

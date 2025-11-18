@@ -54,7 +54,9 @@ public class PhoneDao {
                     rs.getString("camera"),
                     rs.getString("connectivity"),
                     rs.getString("special_features"),
-                    rs.getString("size")
+                    rs.getString("size"),
+                    rs.getString("image_path"),
+                    rs.getString("detail_description")
                 );
                 // Phone 객체를 리스트에 추가
                 list.add(phone);
@@ -111,7 +113,9 @@ public class PhoneDao {
     					rs.getString("camera"),
     					rs.getString("connectivity"),
     					rs.getString("special_features"),
-    					rs.getString("size")
+    					rs.getString("size"),
+    					rs.getString("image_path"),
+    					rs.getString("detail_description")
     				);
         		}
         	}
@@ -263,7 +267,9 @@ public class PhoneDao {
 						rs.getString("camera"),
 						rs.getString("connectivity"),
 						rs.getString("special_features"),
-						rs.getString("size")
+						rs.getString("size"),
+						rs.getString("image_path"),
+						rs.getString("detail_description")
 					);
 					list.add(phone);
 				}
@@ -308,7 +314,9 @@ public class PhoneDao {
 						rs.getString("camera"),
 						rs.getString("connectivity"),
 						rs.getString("special_features"),
-						rs.getString("size")
+						rs.getString("size"),
+						rs.getString("image_path"),
+						rs.getString("detail_description")
 					);
 					list.add(phone);
 				}
