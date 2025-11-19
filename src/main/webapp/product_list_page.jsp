@@ -406,7 +406,7 @@
                 <span>모델명</span>
                 <span>연식</span>
                 <span>저장공간</span>
-                <span>가격</span>
+                <span>출시 가격</span>
             </div>
         </div>
         <div class="header-right">

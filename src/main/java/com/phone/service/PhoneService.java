@@ -146,8 +146,8 @@ public class PhoneService {
 	===============================================================
 	2) 가격 점수 (비쌀수록 감점, 최대 -18)
 	---------------------------------------------------------------
-	pricePenalty = (price / 100,000) × 1.2
-	최대 감점 = -18
+	pricePenalty = (price / 100,000) × 0.6
+	최대 감점 = -10
 
 
 	===============================================================
@@ -266,6 +266,8 @@ public class PhoneService {
         score += calcSpecialFeaturesScore(p.getSpecialFeatures());
 
         score -= calcPricePenalty(p.getPrice());
+        
+        score += 10.0;	// 점수가 너무 낮은 관계로 10점 추가
 
         return score;
     }
@@ -291,8 +293,8 @@ public class PhoneService {
     // 2) 가격 페널티 (최대 -18점)
     private double calcPricePenalty(int price) {
         if (price <= 0) return 0.0;
-        double penalty = (price / 100000.0) * 1.2; // 10만원당 1.2점
-        return Math.min(penalty, 18.0);
+        double penalty = (price / 100000.0) * 0.6; // 10만원당 0.6점
+        return Math.min(penalty, 10.0);
     }
     // 3) 저장공간 점수 (최대 +10점)
     private double calcStorageScore(int storageGb) {
@@ -363,13 +365,23 @@ public class PhoneService {
     }
     // 문자열에서 "NNMP" 형태의 숫자 중 가장 큰 값 찾기
     private int extractMaxMpFromString(String text) {
+    	// \\d+ -> \d 는 숫자(0~9)
+    	// + -> 하나 이상 반복
+    	// () 는 캡처 그룹
+    	// \\s* -> \s 는 공백 문자(스페이스, 탭 등)
+    	// * -> 0개 이상
+    	// 숫자와 MP 사이에 공백이 있든 없든 다 허용 ==> 200MP, 200 MP, 둘 다 가능
+    	// MP -> 말 그대로 MP라는 텍스트를 찾음
+    	// Pattern.CASE_INSENSITIVE -> 대소문자 구분 안함, MP Mp mp mP 전부 매칭 가능
         Pattern pattern = Pattern.compile("(\\d+)\\s*MP", Pattern.CASE_INSENSITIVE);
+        //
         Matcher matcher = pattern.matcher(text);
         int max = 0;
         while (matcher.find()) {
             try {
                 int value = Integer.parseInt(matcher.group(1));
-                if (value > max) {
+                //() 안에 있는 group() Strign 을 int 로 파싱 후 사용
+                if (value > max) { 
                     max = value;
                 }
             } catch (NumberFormatException ignore) {

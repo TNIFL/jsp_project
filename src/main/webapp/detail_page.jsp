@@ -148,6 +148,7 @@
             phoneId = Integer.parseInt(param);
         } catch (NumberFormatException e) {
             phoneId = 0;
+            e.printStackTrace();
         }
     }
 	
