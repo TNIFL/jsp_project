@@ -6,13 +6,27 @@
 <%@ page import="java.util.*" %>
 
 <%
-    int postId = Integer.parseInt(request.getParameter("postId"));
+    // 1. 게시글 ID 파싱
+    String postIdParam = request.getParameter("postId");
+    if (postIdParam == null) {
+        response.sendRedirect("community_main.jsp");
+        return;
+    }
+    int postId = Integer.parseInt(postIdParam);
+
+    // 2. 데이터 가져오기
     PostDao dao = new PostDao();
     CommentDao cdao = new CommentDao();
 
     dao.increaseClick(postId);  // 조회수 증가
     Post post = dao.getPostById(postId);
     List<Comment> comments = cdao.getAllCommentsByPostId(postId);
+    
+    // 3. 로그인 세션 확인 (팀원이 로그인 기능 만들면 "loginUserId"라는 이름으로 세션 저장한다고 가정)
+    String loginUserId = (String) session.getAttribute("loginUserId");
+    
+    // ★ 테스트용: 로그인 기능이 아직 없다면 아래 줄 주석을 풀면 로그인 된 것처럼 보입니다.
+     loginUserId = "임시테스터"; 
 %>
 
 <!DOCTYPE html>
@@ -20,83 +34,148 @@
 <head>
 <meta charset="UTF-8">
 <title><%= post.getTitle() %></title>
-
 <style>
-    body { font-family: 'Noto Sans KR', sans-serif; background:#f4f4f4; }
-
-    .post-wrapper {
+    body { font-family: 'Noto Sans KR', sans-serif; background:#f4f4f4; margin:0; }
+    
+    .container {
         width: 900px;
-        margin: 30px auto;
+        margin: 40px auto;
         background: #fff;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
-    .post-title { font-size: 24px; font-weight: bold; }
-    .post-info { color:#777; margin-bottom:20px; }
-    .post-content { white-space: pre-line; font-size:16px; margin-bottom: 30px; }
+    /* 게시글 스타일 */
+    .post-header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+    .post-title { font-size: 28px; font-weight: bold; margin-bottom: 10px; }
+    .post-meta { color: #888; font-size: 14px; display: flex; justify-content: space-between; }
+    
+    .post-content { 
+        min-height: 200px; 
+        font-size: 16px; 
+        line-height: 1.6; 
+        white-space: pre-wrap; /* 줄바꿈 보존 */
+        margin-bottom: 50px;
+    }
 
-    .comment-section { margin-top: 30px; }
-    .comment { padding: 10px; border-bottom: 1px solid #eee; }
-    .comment-writer { font-weight: bold; }
-    .comment-date { color:#888; font-size: 12px; }
+    /* 댓글 영역 스타일 */
+    .comment-section { 
+        background-color: #fafafa; 
+        padding: 20px; 
+        border-radius: 10px; 
+        margin-top: 30px;
+    }
+    .comment-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom:1px solid #ddd; padding-bottom:10px;}
+    
+    .comment-list { margin-bottom: 20px; }
+    .comment-item { 
+        border-bottom: 1px solid #e0e0e0; 
+        padding: 12px 0; 
+        display: flex; 
+        flex-direction: column;
+    }
+    .comment-info { font-size: 13px; color: #666; margin-bottom: 5px; }
+    .comment-info b { color: #333; font-size: 14px; margin-right: 8px; }
+    .comment-text { font-size: 15px; color: #333; }
 
-    .back-btn {
-        display:inline-block;
-        margin-top:20px;
-        background:#6677ff;
-        padding:8px 15px;
-        border-radius:6px;
-        color:#fff;
-        text-decoration:none;
+    /* 댓글 입력 폼 */
+    .comment-form { display: flex; gap: 10px; margin-top: 20px; }
+    .comment-input { 
+        flex: 1; 
+        padding: 12px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        resize: none; 
+    }
+    .comment-btn { 
+        background: #007bff; 
+        color: white; 
+        border: none; 
+        padding: 0 20px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold;
+    }
+    .comment-btn:hover { background: #0056b3; }
+    
+    .login-msg {
+        text-align: center;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        color: #555;
+    }
+    .login-msg a { color: #007bff; text-decoration: none; font-weight: bold; }
+
+    .btn-list {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        background: #555;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
     }
 </style>
-
 </head>
 <body>
-<jsp:include page="header.jsp" />
-<div class="post-wrapper">
+    <!-- 헤더 포함 -->
+    <jsp:include page="header.jsp" />
 
-    <div class="post-title"><%= post.getTitle() %></div>
-    <div class="post-info">
-        작성자: <b><%= post.getUserId() %></b> |
-        조회수: <%= post.getClickCount() %> |
-        날짜: <%= post.getTimestamp() %>
-    </div>
-
-    <div class="post-content"><%= post.getContent() %></div>
-
-    <!-- 댓글 영역 -->
-    <div class="comment-section">
-        <h3>💬 댓글</h3>
-
-        <%
-            if (comments != null) {
-                for (Comment c : comments) {
-        %>
-            <div class="comment">
-                <span class="comment-writer"><%= c.getUserId() %></span>  
-                <span class="comment-date">(<%= c.getTimestamp() %>)</span>
-                <div><%= c.getContent() %></div>
+    <div class="container">
+        <!-- 게시글 영역 -->
+        <div class="post-header">
+            <div class="post-title"><%= post.getTitle() %></div>
+            <div class="post-meta">
+                <span>작성자: <%= post.getUserId() %></span>
+                <span><%= post.getTimestamp() %> | 조회 <%= post.getClickCount() %></span>
             </div>
-        <%
-                }
-            }
-        %>
+        </div>
 
-        <form action="write_comment.jsp" method="post">
-            <input type="hidden" name="postId" value="<%= postId %>">
+        <div class="post-content"><%= post.getContent() %></div>
 
-            <textarea name="content" rows="3" style="width:100%;" placeholder="댓글을 입력하세요"></textarea>
-            <br>
-            <button type="submit">댓글 작성</button>
-        </form>
+        <!-- 댓글 영역 -->
+        <div class="comment-section">
+            <div class="comment-title">댓글 (<%= comments.size() %>)</div>
+
+            <div class="comment-list">
+                <% if (comments != null && comments.size() > 0) { 
+                    for (Comment c : comments) { %>
+                        <div class="comment-item">
+                            <div class="comment-info">
+                                <b><%= c.getUserId() %></b> 
+                                <span><%= c.getTimestamp() %></span>
+                            </div>
+                            <div class="comment-text"><%= c.getContent() %></div>
+                        </div>
+                <%  } 
+                   } else { %>
+                        <p style="color:#999; text-align:center; padding:20px;">등록된 댓글이 없습니다.</p>
+                <% } %>
+            </div>
+
+            <!-- 댓글 입력창 (로그인 상태에 따라 다르게 보임) -->
+            <% if (loginUserId != null) { %>
+                <form action="writeComment" method="post" class="comment-form">
+                    <input type="hidden" name="postId" value="<%= postId %>">
+                    <!-- userId는 서블릿에서 세션으로 처리하므로 여기서 hidden으로 보낼 필요 없음 -->
+                    
+                    <textarea name="content" class="comment-input" rows="2" placeholder="댓글을 남겨보세요." required></textarea>
+                    <button type="submit" class="comment-btn">등록</button>
+                </form>
+            <% } else { %>
+                <div class="login-msg">
+                    댓글을 작성하려면 <a href="login.jsp">로그인</a>이 필요합니다.
+                </div>
+            <% } %>
+        </div>
+
+        <a href="community_main.jsp" class="btn-list">목록으로</a>
     </div>
 
-    <a href="community_main.jsp" class="back-btn">← 목록으로</a>
-
-</div>
-<jsp:include page="footer.jsp" />
+    <!-- 푸터 포함 -->
+    <jsp:include page="footer.jsp" />
 </body>
 </html>
