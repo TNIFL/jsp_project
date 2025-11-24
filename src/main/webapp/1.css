@@ -64,6 +64,11 @@ body {
 .margin-170{
 	margin-left : 170px;
 }
+/*이벤트 정보 텍스트 비율 맞추기*/
+.margin-590{
+	margin-left : 590px;
+}
+/*띄어쓰기용*/
 .margin-20{
 	margin-left : 20px;
 }
@@ -77,4 +82,9 @@ body {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+/*이미지 처음 띄어쓰는용*/
+.margin-40	
+{
+	margin-left:40px;
 }
