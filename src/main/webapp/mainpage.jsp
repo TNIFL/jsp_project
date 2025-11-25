@@ -16,7 +16,6 @@
         <div class="p-5 mb-4 bg-light rounded-3 text-center shadow-sm">
             <h1 class="display-5 fw-bold">제품 비교 사이트</h1>
             <p class="fs-4">전자 제품을 쉽고 빠르게 비교할 수 있는 플랫폼입니다.</p>
-            <a href="compare.jsp" class="btn btn-primary btn-lg mt-3">제품 비교 시작하기</a>
         </div>
     </div>
 
@@ -30,7 +29,6 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">수험생 할인</h5>
                         <p class="card-text">수험표 제출 시 특별 할인 혜택을 드립니다.</p>
-                        <a href="event_exam.jsp" class="btn btn-outline-primary">자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +39,6 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">기존 기기 할인</h5>
                         <p class="card-text">사용하던 기기를 반납하면 추가 할인!</p>
-                        <a href="event_device.jsp" class="btn btn-outline-primary">자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -52,7 +49,6 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">크리스마스 이벤트</h5>
                         <p class="card-text">12/22 ~ 12/26 크리스마스 특별 할인!</p>
-                        <a href="event_christmas.jsp" class="btn btn-outline-primary">자세히 보기</a>
                     </div>
                 </div>
             </div>
