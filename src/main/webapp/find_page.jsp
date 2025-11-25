@@ -123,7 +123,7 @@
                     </td>
 
                     <td>
-                        <a class="detail-btn" href="phone_detail.jsp?id=${p.phoneId}">
+                        <a class="detail-btn" href="detail_page.jsp?id=${p.phoneId}">
                             상세보기
                         </a>
                     </td>
