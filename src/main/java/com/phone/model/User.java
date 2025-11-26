@@ -14,6 +14,11 @@ public class User {
 		this.userId = userId;
 		this.password = password;
 	}
+	// DB에서 유저 정보 가져올 때 사용하는 생성자
+	public User(String nickname, String userId) {
+		this.nickname = nickname;
+		this.userId = userId;
+	}
 	
 	// Getters and Setters
 	public String getNickname() {

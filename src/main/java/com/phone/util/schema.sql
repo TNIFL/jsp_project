@@ -9,6 +9,7 @@ SET time_zone = '+09:00';
 
 CREATE TABLE phones (
   phone_id        BIGINT AUTO_INCREMENT PRIMARY KEY,
+  image_path 	  VARCHAR(255)  NULL,
   brand           VARCHAR(50)   NOT NULL,
   model           VARCHAR(100)  NOT NULL,
   price           INT NOT NULL,
