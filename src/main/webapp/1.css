@@ -10,6 +10,10 @@
   padding: 10px;
   
 }
+ul
+{
+	list-style: none;
+}
 
 /*메뉴 ul 스타일*/
 .menu ul {
@@ -88,3 +92,5 @@ body {
 {
 	margin-left:40px;
 }
+
+
