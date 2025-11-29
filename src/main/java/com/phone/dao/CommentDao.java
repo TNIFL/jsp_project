@@ -1,39 +1,88 @@
 package com.phone.dao;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.phone.model.Comment;
+import com.phone.util.DB;
 
-
-/*
- * DB 와 직접적으로 상호작용하는 클래스
- * 댓글에 대한 CRUD 기능 구현
- * SQL 쿼리를 사용하여 데이터베이스와 통신
- * 
- * Service 계층에서 이 Dao 클래스를 호출하여 데이터 접근
- * jsp 에서 dao 에 직접 접근하지 않고 service 를 통해 접근
- */
 public class CommentDao {
-	public void createComment(int commentId, int postId, String userId, String content, String timestamp) {
-		// DB에 댓글 저장
-	}
-	
-	public List<Comment> getAllCommentsByPostId(int postId) {
-		return null; // 나중에 List<Comment>로 변경
-	}
-	
-	public void readComment(int commentId) {
-		// DB에서 댓글 조회
-	}
-	
-	public void updateComment(int commentId, String content) {
-		// DB에서 댓글 수정
-	}
-	
-	public void deleteComment(int commentId) {
-		// DB에서 댓글 삭제
-	}
+
+    // 댓글 생성
+    public void createComment(int postId, String userId, String content, String timestamp) {
+
+        // 테이블명이 community_comments가 맞는지 DB 확인 필요
+        String sql = "INSERT INTO community_comments (post_id, writer_id, content, created_at) "
+                   + "VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, postId);
+            ps.setString(2, userId);
+            ps.setString(3, content);
+            ps.setString(4, timestamp);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 특정 게시글의 모든 댓글 조회
+    public List<Comment> getAllCommentsByPostId(int postId) {
+
+        List<Comment> list = new ArrayList<>();
+        String sql = "SELECT * FROM community_comments WHERE post_id = ? ORDER BY created_at ASC";
+
+        try (Connection conn = DB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, postId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // Comment 생성자 순서와 DB 컬럼 순서가 맞는지 확인 필요
+                Comment c = new Comment(
+                        rs.getInt("comment_id"),
+                        rs.getInt("post_id"),
+                        rs.getString("writer_id"), // DB 컬럼명이 writer_id 인지 확인
+                        rs.getString("content"),
+                        rs.getString("created_at")
+                );
+                list.add(c);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 댓글 수정
+    public void updateComment(int commentId, String content) {
+        String sql = "UPDATE community_comments SET content = ? WHERE comment_id = ?";
+        try (Connection conn = DB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, content);
+            ps.setInt(2, commentId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 댓글 삭제
+    public void deleteComment(int commentId) {
+        String sql = "DELETE FROM community_comments WHERE comment_id = ?";
+        try (Connection conn = DB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, commentId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-
-  

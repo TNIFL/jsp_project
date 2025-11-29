@@ -26,7 +26,7 @@
     String loginUserId = (String) session.getAttribute("loginUserId");
     
     // ★ 테스트용: 로그인 기능이 아직 없다면 아래 줄 주석을 풀면 로그인 된 것처럼 보입니다.
-     loginUserId = "임시테스터"; 
+     //loginUserId = "test"; 
 %>
 
 <!DOCTYPE html>
@@ -34,6 +34,7 @@
 <head>
 <meta charset="UTF-8">
 <title><%= post.getTitle() %></title>
+<link rel="stylesheet" href="1.css"> 
 <style>
     body { font-family: 'Noto Sans KR', sans-serif; background:#f4f4f4; margin:0; }
     
