@@ -34,7 +34,8 @@
 <head>
 <meta charset="UTF-8">
 <title><%= post.getTitle() %></title>
-<link rel="stylesheet" href="1.css"> 
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 <style>
     body { font-family: 'Noto Sans KR', sans-serif; background:#f4f4f4; margin:0; }
     

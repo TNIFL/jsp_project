@@ -13,7 +13,8 @@
 <head>
     <meta charset="UTF-8">
     <title>제품 리스트</title>
-
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
     <style>
     	/* 알아보기 쉽게만 스타일링 했음 */
     	/* 맘대로 고치셔요 */

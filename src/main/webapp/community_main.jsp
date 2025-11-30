@@ -24,7 +24,8 @@
 <title>커뮤니티</title>
 
 <!-- 공통 CSS 연결 (헤더, 푸터 스타일 등) -->
-<link rel="stylesheet" href="1.css"> 
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 
 <style>
     body {

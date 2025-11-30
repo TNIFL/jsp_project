@@ -9,11 +9,12 @@
 <%@ page import="com.phone.model.Phone" %>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>제품 비교 페이지</title>
-
+    <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
     <style>
         /* 전체 기본 스타일
            - 폰트랑 글자 크기만 살짝 지정 */

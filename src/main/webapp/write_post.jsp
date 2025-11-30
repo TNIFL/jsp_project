@@ -19,8 +19,8 @@
 <title>게시글 작성</title>
 
 <!-- 1. 팀원 공통 CSS 연결 -->
-<link rel="stylesheet" href="1.css">
-
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 <!-- 2. 폰트 (팀원 CSS에 없다면 유지) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 

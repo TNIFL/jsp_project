@@ -21,8 +21,8 @@
 <meta charset="UTF-8">
 <title>가성비 비교</title>
 <!-- 팀원 공통 CSS 연결 -->
-<link rel="stylesheet" href="1.css">
-
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 <style>
     /* 팀원 CSS(.container)와 내 스타일(.wrapper) 합치기 */
     .wrapper {
