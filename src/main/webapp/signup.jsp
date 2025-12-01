@@ -10,53 +10,39 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" />
-
+    
     <!-- 헤더 영역 -->
     <!-- header.jsp 내용이 여기에 들어갑니다 -->
-	 <div class="mb-3">
-                <label for="id" class="form-label">아이디</label>
-                <input type="text" class="form-control" id="id" name="id" required>
-            </div>
+    <jsp:include page="header.jsp" />
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm p-4">
+    				<form action="signup_process.jsp" method="post">
+	 					<div class="mb-3">
+                			<label for="id" class="form-label">아이디</label>
+                			<input type="text" class="form-control" id="id" name="id" required>
+            			</div>
 
-            <div class="mb-3">
-                <label for="passwd" class="form-label">비밀번호</label>
-                <input type="password" class="form-control" id="passwd" name="passwd" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="passwd2" class="form-label">비밀번호 확인</label>
-                <input type="password" class="form-control" id="passwd2" name="passwd2" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="phone" class="form-label">전화번호</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1234-5678">
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">이메일</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">성별</label><br>
-                <input type="radio" name="gender" value="M"> 남성
-                <input type="radio" name="gender" value="F"> 여성
-            </div>
-
-            <div class="mb-3">
-                <label for="birth" class="form-label">생년월일</label>
-                <input type="date" class="form-control" id="birth" name="birth">
-            </div>
-
-            <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="agree" required>
-                <label class="form-check-label" for="agree">이용약관 및 개인정보 처리방침에 동의합니다.</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">가입</button>
-        </form>
+           				 <div class="mb-3">
+                			<label for="nickname" class="form-label">닉네임</label>
+                			<input type="text" class="form-control" id="nickname" name="nickname" required>
+			            </div>
+			
+			            <div class="mb-3">
+			                <label for="passwd" class="form-label">비밀번호</label>
+			                <input type="password" class="form-control" id="passwd" name="passwd" required>
+			            </div>
+			
+			            <div class="mb-3">
+			                <label for="passwd2" class="form-label">비밀번호 확인</label>
+			                <input type="password" class="form-control" id="passwd2" name="passwd2" required>
+			            </div>
+							<p><input type="submit" value ="가입">
+			        </form>
+			    </div>
+		    </div>
+	    </div>
     </div>
 
     <!-- 푸터 영역 -->

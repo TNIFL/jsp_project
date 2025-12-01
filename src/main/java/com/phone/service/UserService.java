@@ -70,5 +70,10 @@ public class UserService {
 		//dao의 deleteUser 메서드 호출
 		return userDao.deleteUser(userId);
 	}
-	
+	 public boolean registerUser(String id, String pw, String name) {
+	        // DB 연결 후 INSERT 수행
+	        // 중복 아이디 체크 → INSERT 성공 시 true, 실패 시 false 반환
+	        // 예시용이므로 실제 DB 코드는 생략
+	        return true; // 또는 false
+	    }
 }
