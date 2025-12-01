@@ -16,171 +16,279 @@
 <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
 		<link rel="stylesheet" href="1.css">
     <style>
-    	/* 알아보기 쉽게만 스타일링 했음 */
-    	/* 맘대로 고치셔요 */
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
+    	<style>
+    /* 전체 배경 & 기본 폰트 */
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        background-color: #f5f6fa;
+        color: #333;
+    }
 
-        .list-container {
-            width: 900px;
-            margin: 20px auto;
-        }
+    /* 메인 컨테이너 */
+    .list-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 24px 28px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
 
-        .list-title {
-            margin-bottom: 12px;
-        }
+    .list-title {
+        margin: 0 0 18px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #222;
+    }
 
-        .filter-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 12px;
-            background-color: #fafafa;
-        }
+    /* 필터 박스 */
+    .filter-box {
+        margin-bottom: 18px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid #e0e4f0;
+        background: linear-gradient(135deg, #f7f8ff, #fdfdff);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
 
-        .filter-box form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
+    .filter-box form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        align-items: center;
+    }
 
-        .filter-box label {
-            font-size: 13px;
-        }
+    .filter-box label {
+        font-size: 13px;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-        .filter-box select,
-        .filter-box button {
-            font-size: 13px;
-            padding: 3px 6px;
-        }
+    .filter-box select {
+        font-size: 13px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid #ccd1ea;
+        background-color: #fff;
+        color: #333;
+        outline: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
 
-        /* 헤더 줄 (브랜드 | 모델명 | 연식 | 저장공간 | 가격 | 점수) */
-        .list-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 12px;
-            margin-bottom: 4px;
-            border-bottom: 1px solid #bbb;
-            font-weight: bold;
-            background-color: #f3f3f3;
-        }
+    .filter-box select:focus,
+    .filter-box select:hover {
+        border-color: rgba(75, 108, 255, 0.9);
+        box-shadow: 0 0 0 2px rgba(75, 108, 255, 0.15);
+    }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .filter-box button {
+        margin-left: auto;
+        padding: 7px 16px;
+        border-radius: 999px;
+        border: none;
+        background-color: #4b6cff;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(75, 108, 255, 0.3);
+        transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
 
-        /* 이미지 자리 맞추기용, 리스트의 이미지랑 동일 너비 */
-        .header-image-placeholder {
-            width: 70px;
-            height: 1px; /* 실질 이미지가 아니라서 높이는 작게 */
-        }
+    .filter-box button:hover {
+        background-color: #3a57e0;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(75, 108, 255, 0.36);
+    }
 
-        /* 텍스트 열을 grid로 고정해서 헤더/리스트 줄 맞추기 */
-        .header-text,
-        .phone-text {
-            display: grid;
-            grid-template-columns: 80px 140px 60px 80px 120px; 
-            /*    브랜드  모델명  연식  저장공간  가격   */
-            column-gap: 4px;
-        }
+    .filter-box button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(75, 108, 255, 0.3);
+    }
 
-        .header-text span {
-            text-align: left;
-        }
+    /* 리스트 헤더 (열 제목) */
+    .list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        margin-bottom: 6px;
+        border-radius: 10px;
+        background: #f0f3ff;
+        border: 1px solid #d7ddff;
+        font-weight: 600;
+        color: #445;
+    }
 
-        .header-right {
-            font-size: 13px;
-            text-align: center;
-            width: 90px; /* 점수 / 버튼 영역 폭 맞추기용 */
-        }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        /* 한 제품(한 줄)을 감싸는 박스 */
-        .phone-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #ccc;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            background-color: #fdfdfd;
-        }
+    .header-image-placeholder {
+        width: 70px;
+        height: 1px;
+    }
 
-        .phone-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .header-text,
+    .phone-text {
+        display: grid;
+        grid-template-columns: 80px 140px 60px 80px 120px;
+        column-gap: 6px;
+        align-items: center;
+        font-size: 13px;
+    }
 
-        .phone-image {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border: 1px solid #aaa;
-        }
+    .header-text span {
+        text-align: left;
+    }
 
-        .phone-right {
-            text-align: center;
-            width: 90px; /* 헤더의 .header-right 와 폭 맞추기 */
-        }
+    .header-right {
+        font-size: 13px;
+        text-align: center;
+        width: 110px;
+    }
 
-        .phone-right a {
-            display: inline-block;
-            margin-top: 4px;
-            padding: 4px 8px;
-            border: 1px solid #666;
-            text-decoration: none;
-            background-color: #eee;
-            font-size: 12px;
-        }
+    /* 개별 제품 카드 */
+    .phone-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e3e6f0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s;
+    }
 
-        .phone-right a:hover {
-            background-color: #ddd;
-        }
+    .phone-item:hover {
+        transform: translateY(-2px);
+        border-color: rgba(75, 108, 255, 0.6);
+        box-shadow: 0 8px 18px rgba(75, 108, 255, 0.15);
+    }
 
-        .pagination {
-            text-align: center;
-            margin-top: 16px;
-        }
+    .phone-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
 
-        .pagination a,
-        .pagination span {
-            display: inline-block;
-            width: 26px;
-            height: 26px;
-            line-height: 26px;
-            margin: 0 2px;
-            border: 1px solid #888;
-            text-decoration: none;
-            font-size: 13px;
-        }
+    .phone-image {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid #d0d5e5;
+        background-color: #fafafa;
+    }
 
-        .pagination .current {
-            background-color: #4b6cff;
-            color: #fff;
-            font-weight: bold;
-        }
+    .phone-text span {
+        font-size: 13px;
+        color: #444;
+    }
 
-        .score-badge {
-            display: inline-block;
-            min-width: 32px;
-            text-align: center;
-            padding: 4px 6px;
-            margin-bottom: 4px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            color: #fff;
-        }
+    .phone-text span:nth-child(2) {
+        font-weight: 600; /* 모델명 강조 */
+    }
 
-        .score-red    { background-color: #e74c3c; }
-        .score-orange { background-color: #e67e22; }
-        .score-green  { background-color: #27ae60; }
-        .score-blue   { background-color: #2980b9; }
+    .phone-right {
+        text-align: center;
+        width: 110px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .phone-right a {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        border: none;
+        background-color: #f3f4ff;
+        color: #3d4bc0;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .phone-right a:hover {
+        background-color: #3d4bc0;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(61, 75, 192, 0.35);
+    }
+
+    /* 점수 뱃지 색상 */
+    .score-badge {
+        display: inline-block;
+        min-width: 36px;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .score-red    { background-color: #e74c3c; }
+    .score-orange { background-color: #e67e22; }
+    .score-green  { background-color: #27ae60; }
+    .score-blue   { background-color: #2980b9; }
+
+    /* 페이지네이션 */
+    .pagination {
+        text-align: center;
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .pagination a,
+    .pagination span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 30px;
+        height: 30px;
+        padding: 0 8px;
+        border-radius: 999px;
+        border: 1px solid #d0d4eb;
+        background-color: #fff;
+        color: #555;
+        font-size: 13px;
+        text-decoration: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .pagination a:hover {
+        background-color: #f0f3ff;
+        border-color: #4b6cff;
+        color: #333;
+        box-shadow: 0 3px 8px rgba(75, 108, 255, 0.25);
+    }
+
+    .pagination .current {
+        background-color: #4b6cff;
+        border-color: #4b6cff;
+        color: #fff;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(75, 108, 255, 0.36);
+    }
+</style>
+
     </style>
 </head>
 <body>
