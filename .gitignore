@@ -28,7 +28,4 @@ Thumbs.db
 
 # lib
 *.jar
-src/main/webapp/WEB-INF/lib/*.jar
-
-# 이미지 파일
-images/
+src/main/webapp/WEB-INF/lib/*.

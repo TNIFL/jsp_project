@@ -20,7 +20,7 @@
                 <div class="card shadow-sm p-4">
                     <h2 class="text-center mb-4">로그인</h2>
 
-                    <form action="login_process.jsp" method="post">
+                    <form action="loginProcess.jsp" method="post">
                         <div class="mb-3">
                             <label for="id" class="form-label">아이디</label>
                             <input type="text" class="form-control" id="id" name="id" required>

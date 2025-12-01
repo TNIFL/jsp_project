@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>회원 가입</title>
     <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
-		<link rel="stylesheet" href="menu.css">
+		<link rel="stylesheet" href="1.css">
 </head>
 <body>
 
