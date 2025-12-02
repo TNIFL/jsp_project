@@ -23,7 +23,7 @@ public class PostWriteServlet extends HttpServlet {
 
         // 1. 세션에서 로그인된 사용자 ID 가져오기
         HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("loginUserId");
+        String userId = (String) session.getAttribute("userID");
 
         // ★ 테스트용
         // userId = "test"; 

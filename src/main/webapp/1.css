@@ -76,9 +76,14 @@ body {
 .margin-20{
 	margin-left : 20px;
 }
-/*로그인과 회원 가입을 나누기 위한 margin-left 900px*/
+/*로그인과 회원 가입을 나누기 위한 margin-left 820px*/
 .margin-50{   
-	margin-left : 900px;
+	margin-left : 820px;
+}
+/*로그인 중일떄*/
+.margin-51
+{
+	margin-left : 780px;
 }
 /*li 폰트*/
 .container {

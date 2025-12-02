@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     // [보안 체크] 로그인하지 않은 사용자가 주소창에 URL을 직접 쳐서 들어오는 것을 방지
-    String loginUserId = (String) session.getAttribute("loginUserId");
+    String loginUserId = (String) session.getAttribute("userID");
 
-    // ★ 테스트용
-    // loginUserId = "test"; 
-
-    if (loginUserId == null) {
-        // 로그인이 안 되어 있다면 로그인 페이지로 강제 이동
-        response.sendRedirect("login.jsp");
-        return;
-    }
 %>
 <!DOCTYPE html>
 <html>

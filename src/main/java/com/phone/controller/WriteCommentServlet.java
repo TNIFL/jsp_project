@@ -26,10 +26,7 @@ public class WriteCommentServlet extends HttpServlet {
 
         // 1. 세션에서 로그인된 사용자 ID 가져오기
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("loginUserId");
-
-        // ★ 팀원이 로그인 기능을 아직 안 만들었다면? 테스트를 위해 아래 주석을 풀고 강제로 ID를 넣으세요.
-         userId = "test"; 
+        String userId = (String) session.getAttribute("userID");
 
         // 로그인이 안 되어 있다면 로그인 페이지로 튕겨내기
         if (userId == null) {
@@ -52,7 +49,7 @@ public class WriteCommentServlet extends HttpServlet {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         // 4. 서비스 호출 (댓글 저장)
-        commentService.createComment(postId, userId, content, timestamp);
+        commentService.createComment(postId, content, userId, timestamp);
 
         // 5. 처리가 끝나면 다시 해당 게시글 상세 페이지로 이동
         // (주의: 상세페이지 파일명이 detail_page.jsp 인지 community_post_page.jsp 인지 확인 후 수정하세요)

@@ -10,18 +10,18 @@ import com.phone.util.DB;
 public class CommentDao {
 
     // 댓글 생성
-    public void createComment(int postId, String userId, String content, String timestamp) {
+    public void createComment(int postId, String content, String userId, String timestamp) {
 
         // 테이블명이 community_comments가 맞는지 DB 확인 필요
-        String sql = "INSERT INTO community_comments (post_id, writer_id, content, created_at) "
+        String sql = "INSERT INTO community_comments (post_id, content, writer_id, created_at) "
                    + "VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, postId);
-            ps.setString(2, userId);
-            ps.setString(3, content);
+            ps.setString(2, content);
+            ps.setString(3, userId);
             ps.setString(4, timestamp);
 
             ps.executeUpdate();
