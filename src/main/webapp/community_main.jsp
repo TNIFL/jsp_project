@@ -8,10 +8,13 @@
     PostDao dao = new PostDao();
     List<Post> posts = dao.getAllPosts();
     request.setAttribute("posts", posts);
+    posts.getCommentId()
 
     // [로그인 체크]
     // 세션에서 로그인 아이디 가져오기
-    String currentUserId = (String) session.getAttribute("loginUserId");
+    String currentUserId = (String) session.getAttribute("userID");
+    System.out.println("커뮤니티 페이지 세션 userID = " + currentUserId);
+   
     
     // ★ 테스트용
     // currentUserId = "test"; 

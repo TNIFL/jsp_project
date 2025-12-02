@@ -16,284 +16,369 @@
     <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
 		<link rel="stylesheet" href="1.css">
     <style>
-        /* 전체 기본 스타일
-           - 폰트랑 글자 크기만 살짝 지정 */
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
+    /* 전체 배경 & 기본 폰트 */
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        background-color: #f5f6fa;
+        color: #333;
+    }
 
-        /* 페이지 전체를 감싸는 영역 */
-        .compare-container {
-            width: 1100px;           /* 페이지 폭 고정 */
-            margin: 20px auto;       /* 가운데 정렬 */
-        }
+    /* 페이지 전체를 감싸는 카드 */
+    .compare-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 24px 28px 28px;
+        background-color: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    }
 
-        .compare-title {
-            margin-bottom: 16px;
-        }
+    .compare-title {
+        margin: 0 0 18px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #222;
+    }
 
-        /* 상단 : 제품 선택 드롭다운 영역
-           - 왼쪽/오른쪽 제품 선택 + VS + 버튼 */
-        .selector-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 16px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fafafa;
-        }
+    /* 상단 선택 영역 (폼) */
+    .selector-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        border: 1px solid #dde2f3;
+        background: linear-gradient(135deg, #f7f8ff, #fdfdff);
+        box-shadow: 0 5px 14px rgba(0, 0, 0, 0.04);
+    }
 
-        /* 왼쪽/오른쪽 드롭다운 각각의 칸 */
-        .selector-column {
-            flex: 1;
-        }
+    .selector-column {
+        flex: 1;
+    }
 
-        .selector-column label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: bold;
-        }
+    .selector-column label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #444;
+    }
 
-        .selector-column select {
-            width: 100%;
-            padding: 4px 6px;
-            font-size: 13px;
-        }
+    .selector-column select {
+        width: 100%;
+        padding: 7px 10px;
+        font-size: 13px;
+        border-radius: 999px;
+        border: 1px solid #c8cfea;
+        background-color: #fff;
+        color: #333;
+        outline: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
 
-        /* 가운데 "VS" 영역 */
-        .selector-center {
-            width: 80px;
-            text-align: center;
-            font-weight: bold;
-        }
+    .selector-column select:hover,
+    .selector-column select:focus {
+        border-color: #4b6cff;
+        box-shadow: 0 0 0 2px rgba(75, 108, 255, 0.18);
+    }
 
-        /* 상단 폼의 버튼 (비교하기) */
-        .selector-row button {
-            padding: 6px 14px;
-            font-size: 13px;
-        }
+    .selector-center {
+        width: 60px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+        color: #4b4e63;
+    }
 
-        /* 하단 : 실제 비교 영역 (좌/우 두 칼럼) */
-        .compare-main {
-            display: grid;
-            grid-template-columns: 1fr 1fr;  /* 왼쪽 1, 오른쪽 1 비율 */
-            gap: 16px;
-            margin-top: 16px;
-        }
+    .selector-row button {
+        padding: 7px 18px;
+        font-size: 13px;
+        border-radius: 999px;
+        border: none;
+        background-color: #4b6cff;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 5px 14px rgba(75, 108, 255, 0.4);
+        transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
 
-        .compare-column {
-            border: 1px solid #ccc;
-            padding: 12px;
-            background-color: #fdfdfd;
-        }
+    .selector-row button:hover {
+        background-color: #3c57e5;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 18px rgba(75, 108, 255, 0.5);
+    }
 
-        /* 제품 이미지 영역 (박스만 대충 잡기) */
-        .image-box {
-            width: 100%;
-            height: 260px;
-            border: 1px solid #aaa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            background-color: #fff;
-        }
+    .selector-row button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 9px rgba(75, 108, 255, 0.35);
+    }
 
-        .image-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+    /* 비교 메인 레이아웃 */
+    .compare-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 18px;
+    }
 
-        .placeholder-text {
-            color: #777;
-            font-size: 13px;
-        }
+    .compare-column {
+        border-radius: 14px;
+        border: 1px solid #e2e5f1;
+        padding: 14px 16px 16px;
+        background-color: #ffffff;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+        transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s;
+    }
 
-        /* 총점 바 그래프 영역 스타일
-           - 이미지 바로 아래에 총점 + 바 그래프 */
-        .score-summary {
-            margin-bottom: 10px;
-        }
+    .compare-column:hover {
+        transform: translateY(-2px);
+        border-color: rgba(75, 108, 255, 0.6);
+        box-shadow: 0 10px 24px rgba(75, 108, 255, 0.18);
+    }
 
-        .score-summary-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    /* 이미지 영역 */
+    .image-box {
+        width: 100%;
+        height: 260px;
+        border-radius: 12px;
+        border: 1px solid #d4d7e7;
+        background-color: #fafbff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
 
-        .score-summary-label {
-            font-size: 13px;
-            font-weight: bold;
-            width: 40px; /* '총점' 텍스트 영역 너비 */
-        }
+    .image-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
 
-        .score-bar-bg {
-            flex: 1;
-            height: 8px;
-            background-color: #eee;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+    .placeholder-text {
+        color: #888ea8;
+        font-size: 13px;
+        text-align: center;
+    }
 
-        .score-bar-fill-left {
-            height: 100%;
-            background-color: #3498db; /* 왼쪽 바 색 */
-        }
+    /* 총점 영역 */
+    .score-summary {
+        margin-bottom: 8px;
+    }
 
-        .score-bar-fill-right {
-            height: 100%;
-            background-color: #2ecc71; /* 오른쪽 바 색 */
-        }
+    .score-summary-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-        /* "제품 성능 표" 제목 */
-        .spec-title {
-            margin: 10px 0 6px;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 4px;
-        }
+    .score-summary-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+        width: 40px;
+    }
 
-        /* 성능 정보 표 (간단표) */
-        .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
+    .score-bar-bg {
+        flex: 1;
+        height: 8px;
+        background-color: #edf0fb;
+        border-radius: 999px;
+        overflow: hidden;
+    }
 
-        .spec-table th,
-        .spec-table td {
-            padding: 4px 6px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-            vertical-align: middle;
-        }
+    .score-bar-fill-left {
+        height: 100%;
+        background: linear-gradient(90deg, #4b6cff, #8c9bff);
+    }
 
-        .spec-table th {
-            width: 110px;
-            font-weight: normal;
-            color: #555;
-        }
+    .score-bar-fill-right {
+        height: 100%;
+        background: linear-gradient(90deg, #2ecc71, #7ee0a4);
+    }
 
-        /* 항목별 바 그래프 + 승/패 표시 스타일
-           - 한 줄 안에 값, 바, 승패 뱃지를 정렬 */
-        .bar-row {
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    /* 성능 표 제목 */
+    .spec-title {
+        margin: 10px 0 4px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #e1e4f0;
+        padding-bottom: 4px;
+    }
 
-        .bar-bg {
-            flex: 1;
-            height: 6px;
-            background-color: #eee;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+    .spec-title + p {
+        margin: 4px 0 8px;
+        font-size: 11px;
+        color: #9a9fb5;
+    }
 
-        .bar-fill-left {
-            height: 100%;
-            background-color: #3498db; /* 왼쪽 항목 막대 색 */
-        }
+    /* 스펙 표 */
+    .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
 
-        .bar-fill-right {
-            height: 100%;
-            background-color: #2ecc71; /* 오른쪽 항목 막대 색 */
-        }
+    .spec-table th,
+    .spec-table td {
+        padding: 4px 6px;
+        border-bottom: 1px solid #f1f2f7;
+        text-align: left;
+        vertical-align: middle;
+    }
 
-        .result-badge {
-            display: inline-block;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-size: 11px;
-        }
-		/* 이긴 제품의 "승" 색깔은 초록*/
-        .result-win {
-            background-color: #27ae60;
-            color: #fff;
-        }
-		/* 진 제품의 "패" 색깔은 빨강*/
-        .result-lose {
-            background-color: #e74c3c;
-            color: #fff;
-        }
-		/* 비긴 제품의 "동점" 색깔은 회색*/
-        .result-draw {
-            background-color: #bdc3c7;
-            color: #fff;
-        }
+    .spec-table th {
+        width: 110px;
+        font-weight: 500;
+        color: #666c8c;
+    }
 
-        /* 각 칼럼 맨 아래 : 점수 뱃지 + 버튼 */
-        .column-footer {
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    /* 막대 + 승패 줄 */
+    .bar-row {
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-        .detail-button {
-            padding: 4px 10px;
-            font-size: 12px;
-            border: 1px solid #666;
-            background-color: #eee;
-            cursor: pointer;
-            text-decoration: none;
-            color: #333;
-        }
+    .bar-bg {
+        flex: 1;
+        height: 6px;
+        background-color: #edf0fb;
+        border-radius: 999px;
+        overflow: hidden;
+    }
 
-        .detail-button:hover {
-            background-color: #ddd;
-        }
+    .bar-fill-left {
+        height: 100%;
+        background: linear-gradient(90deg, #4b6cff, #8c9bff);
+    }
 
-        /* "제품 상세 버튼 누를 시 상세내용 노출" 영역 */
-        .detail-panel {
-            margin-top: 8px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            background-color: #fafafa;
-            font-size: 13px;
-            display: none;   /* 처음엔 숨겨놓고 버튼으로 토글 */
-        }
+    .bar-fill-right {
+        height: 100%;
+        background: linear-gradient(90deg, #2ecc71, #7ee0a4);
+    }
 
-        /* 점수 색깔 (리스트 페이지와 동일 규칙) */
-        .score-badge {
-            display: inline-block;
-            min-width: 32px;
-            text-align: center;
-            padding: 4px 6px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            color: #fff;
-        }
-        .score-red    { background-color: #e74c3c; }  /* 50점 이하 */
-        .score-orange { background-color: #e67e22; }  /* 51~70점  */
-        .score-green  { background-color: #27ae60; }  /* 71~90점  */
-        .score-blue   { background-color: #2980b9; }  /* 91점 이상 */
+    .result-badge {
+        display: inline-block;
+        padding: 1px 7px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #fff;
+        white-space: nowrap;
+    }
 
-        /* 맨 아래 "제품 리스트 보러가기" 버튼 */
-        .back-list {
-            margin-top: 20px;
-            text-align: center;
-        }
+    .result-win {
+        background-color: #27ae60;
+    }
 
-        .back-list a {
-            display: inline-block;
-            padding: 6px 14px;
-            border: 1px solid #666;
-            background-color: #eee;
-            text-decoration: none;
-            font-size: 13px;
-        }
+    .result-lose {
+        background-color: #e74c3c;
+    }
 
-        .back-list a:hover {
-            background-color: #ddd;
-        }
-    </style>
+    .result-draw {
+        background-color: #95a5a6;
+    }
+
+    /* 점수 뱃지 */
+    .score-badge {
+        display: inline-block;
+        min-width: 32px;
+        text-align: center;
+        padding: 4px 7px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .score-red    { background-color: #e74c3c; }
+    .score-orange { background-color: #e67e22; }
+    .score-green  { background-color: #27ae60; }
+    .score-blue   { background-color: #2980b9; }
+
+    /* 칼럼 하단 버튼 영역 */
+    .column-footer {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .detail-button {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 999px;
+        border: 1px solid #c3c7dc;
+        background-color: #f4f5ff;
+        cursor: pointer;
+        text-decoration: none;
+        color: #3d4bc0;
+        font-weight: 600;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .detail-button:hover {
+        background-color: #3d4bc0;
+        color: #fff;
+        border-color: #3d4bc0;
+        box-shadow: 0 4px 10px rgba(61, 75, 192, 0.35);
+    }
+
+    /* 상세 패널 */
+    .detail-panel {
+        margin-top: 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid #e0e2f1;
+        background-color: #fafbff;
+        font-size: 13px;
+        display: none;
+    }
+
+    .detail-panel strong {
+        display: inline-block;
+        margin-bottom: 4px;
+        color: #444;
+    }
+
+    /* 하단: 리스트로 돌아가기 */
+    .back-list {
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    .back-list a {
+        display: inline-block;
+        padding: 7px 16px;
+        border-radius: 999px;
+        border: 1px solid #c3c7dc;
+        background-color: #f4f5ff;
+        text-decoration: none;
+        font-size: 13px;
+        color: #3d4bc0;
+        font-weight: 600;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .back-list a:hover {
+        background-color: #3d4bc0;
+        color: #fff;
+        border-color: #3d4bc0;
+        box-shadow: 0 4px 10px rgba(61, 75, 192, 0.35);
+    }
+</style>
+
 
     <script>
         /*

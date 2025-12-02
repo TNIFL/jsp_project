@@ -23,7 +23,8 @@
     List<Comment> comments = cdao.getAllCommentsByPostId(postId);
     
     // 3. 로그인 세션 확인 (팀원이 로그인 기능 만들면 "loginUserId"라는 이름으로 세션 저장한다고 가정)
-    String loginUserId = (String) session.getAttribute("loginUserId");
+    int commentId = (int)session.getAttribute("commentId");
+    String loginUserId = (String) session.getAttribute("userID");
     
     // ★ 테스트용: 로그인 기능이 아직 없다면 아래 줄 주석을 풀면 로그인 된 것처럼 보입니다.
      //loginUserId = "test"; 
@@ -161,6 +162,7 @@
             <!-- 댓글 입력창 (로그인 상태에 따라 다르게 보임) -->
             <% if (loginUserId != null) { %>
                 <form action="writeComment" method="post" class="comment-form">
+                	<input type="hidden" name="commentId" value= "<%= commentId %>">
                     <input type="hidden" name="postId" value="<%= postId %>">
                     <!-- userId는 서블릿에서 세션으로 처리하므로 여기서 hidden으로 보낼 필요 없음 -->
                     
