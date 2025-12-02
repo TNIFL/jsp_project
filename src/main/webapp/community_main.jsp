@@ -8,7 +8,6 @@
     PostDao dao = new PostDao();
     List<Post> posts = dao.getAllPosts();
     request.setAttribute("posts", posts);
-    posts.getCommentId()
 
     // [로그인 체크]
     // 세션에서 로그인 아이디 가져오기

@@ -35,7 +35,6 @@ public class WriteCommentServlet extends HttpServlet {
         }
 
         // 2. 파라미터 받기
-        String commentIdStr = request.getParameter("commenID");
         String postIdStr = request.getParameter("postId");
         String content = request.getParameter("content");
 
@@ -45,13 +44,12 @@ public class WriteCommentServlet extends HttpServlet {
         }
 
         int postId = Integer.parseInt(postIdStr);
-        int commentId = Integer.parseInt(commentIdStr);
 
         // 3. 현재 시간 생성
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         // 4. 서비스 호출 (댓글 저장)
-        commentService.createComment(commentId, postId, content, userId, timestamp);
+        commentService.createComment(postId, content, userId, timestamp);
 
         // 5. 처리가 끝나면 다시 해당 게시글 상세 페이지로 이동
         // (주의: 상세페이지 파일명이 detail_page.jsp 인지 community_post_page.jsp 인지 확인 후 수정하세요)

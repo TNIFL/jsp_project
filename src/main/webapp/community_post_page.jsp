@@ -6,7 +6,7 @@
 <%@ page import="java.util.*" %>
 
 <%
-    // 1. 게시글 ID 파싱
+    // 게시글 ID 가져오기
     String postIdParam = request.getParameter("postId");
     if (postIdParam == null) {
         response.sendRedirect("community_main.jsp");
@@ -14,20 +14,33 @@
     }
     int postId = Integer.parseInt(postIdParam);
 
-    // 2. 데이터 가져오기
     PostDao dao = new PostDao();
     CommentDao cdao = new CommentDao();
 
-    dao.increaseClick(postId);  // 조회수 증가
+    dao.increaseClick(postId);
     Post post = dao.getPostById(postId);
-    List<Comment> comments = cdao.getAllCommentsByPostId(postId);
-    
-    // 3. 로그인 세션 확인 (팀원이 로그인 기능 만들면 "loginUserId"라는 이름으로 세션 저장한다고 가정)
-    int commentId = (int)session.getAttribute("commentId");
+
+    // 로그인 사용자 확인
     String loginUserId = (String) session.getAttribute("userID");
-    
-    // ★ 테스트용: 로그인 기능이 아직 없다면 아래 줄 주석을 풀면 로그인 된 것처럼 보입니다.
-     //loginUserId = "test"; 
+
+    // ✅ 댓글 등록 처리 (폼에서 POST로 넘어온 경우)
+    if (request.getMethod().equals("POST") && loginUserId != null) {
+        String content = request.getParameter("content");
+        if (content != null) {
+            // commentId는 간단히 현재 댓글 개수 + 1 (실제로는 AUTO_INCREMENT 권장)
+            int commentId = cdao.getAllCommentsByPostId(postId).size() + 1;
+            String timestamp = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+
+            cdao.createComment(postId, content, loginUserId, timestamp);
+
+            // 새로고침하여 중복 등록 방지
+            response.sendRedirect("community_post_page.jsp?postId=" + postId);
+            return;
+        }
+    }
+
+    // 댓글 목록 가져오기
+    List<Comment> comments = cdao.getAllCommentsByPostId(postId);
 %>
 
 <!DOCTYPE html>
@@ -161,8 +174,7 @@
 
             <!-- 댓글 입력창 (로그인 상태에 따라 다르게 보임) -->
             <% if (loginUserId != null) { %>
-                <form action="writeComment" method="post" class="comment-form">
-                	<input type="hidden" name="commentId" value= "<%= commentId %>">
+                <form action="community_post_page.jsp" method="post" class="comment-form">
                     <input type="hidden" name="postId" value="<%= postId %>">
                     <!-- userId는 서블릿에서 세션으로 처리하므로 여기서 hidden으로 보낼 필요 없음 -->
                     

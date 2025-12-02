@@ -8,8 +8,8 @@ public class CommentService {
 
     private final CommentDao commentDao = new CommentDao();
 
-    public void createComment(int commentId, int postId, String content, String userId, String timestamp) {
-        commentDao.createComment(commentId, postId, content, userId, timestamp);
+    public void createComment(int postId, String content, String userId, String timestamp) {
+        commentDao.createComment(postId, content, userId, timestamp);
     }
 
     public List<Comment> getAllCommentsByPostId(int postId) {
