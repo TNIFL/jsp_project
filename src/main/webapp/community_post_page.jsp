@@ -6,7 +6,8 @@
 <%@ page import="java.util.*" %>
 
 <%
-    // 1. 게시글 ID 파싱
+    // 게시글 ID 가져오기
+    //	주소창에 글 번호 없으면 메인으로
     String postIdParam = request.getParameter("postId");
     if (postIdParam == null) {
         response.sendRedirect("community_main.jsp");
@@ -14,19 +15,35 @@
     }
     int postId = Integer.parseInt(postIdParam);
 
-    // 2. 데이터 가져오기
     PostDao dao = new PostDao();
     CommentDao cdao = new CommentDao();
-
-    dao.increaseClick(postId);  // 조회수 증가
+	//조회수 1 올리고 글 가져오기
+    dao.increaseClick(postId);
     Post post = dao.getPostById(postId);
+
+    // 로그인 사용자 확인
+    String loginUserId = (String) session.getAttribute("userID");
+
+    // 댓글 등록 처리 (폼에서 POST로 넘어온 경우)
+    if (request.getMethod().equals("POST") && loginUserId != null) {
+        String content = request.getParameter("content");
+        if (content != null) {
+            //	새로 달릴 댓글의 번호(ID)를 수동으로 만들어주는 역할
+            int commentId = cdao.getAllCommentsByPostId(postId).size() + 1;
+            //날짜 생성
+            String timestamp = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+			//DB에 댓글 저장
+            cdao.createComment(postId, content, loginUserId, timestamp);
+			
+			//	저장이 끝나면 페이지 새로 요청(sendRedirect)
+            // 새로고침하여 중복 등록 방지
+            response.sendRedirect("community_post_page.jsp?postId=" + postId);
+            return;
+        }
+    }
+
+    // 댓글 목록 가져오기
     List<Comment> comments = cdao.getAllCommentsByPostId(postId);
-    
-    // 3. 로그인 세션 확인 (팀원이 로그인 기능 만들면 "loginUserId"라는 이름으로 세션 저장한다고 가정)
-    String loginUserId = (String) session.getAttribute("loginUserId");
-    
-    // ★ 테스트용: 로그인 기능이 아직 없다면 아래 줄 주석을 풀면 로그인 된 것처럼 보입니다.
-     //loginUserId = "test"; 
 %>
 
 <!DOCTYPE html>
@@ -34,7 +51,8 @@
 <head>
 <meta charset="UTF-8">
 <title><%= post.getTitle() %></title>
-<link rel="stylesheet" href="1.css"> 
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 <style>
     body { font-family: 'Noto Sans KR', sans-serif; background:#f4f4f4; margin:0; }
     
@@ -159,14 +177,15 @@
 
             <!-- 댓글 입력창 (로그인 상태에 따라 다르게 보임) -->
             <% if (loginUserId != null) { %>
-                <form action="writeComment" method="post" class="comment-form">
+                <form action="community_post_page.jsp" method="post" class="comment-form">
                     <input type="hidden" name="postId" value="<%= postId %>">
-                    <!-- userId는 서블릿에서 세션으로 처리하므로 여기서 hidden으로 보낼 필요 없음 -->
+                    
                     
                     <textarea name="content" class="comment-input" rows="2" placeholder="댓글을 남겨보세요." required></textarea>
                     <button type="submit" class="comment-btn">등록</button>
                 </form>
             <% } else { %>
+            <!-- 로그인 X, 로그인 창으로 -->
                 <div class="login-msg">
                     댓글을 작성하려면 <a href="login.jsp">로그인</a>이 필요합니다.
                 </div>

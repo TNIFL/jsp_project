@@ -11,7 +11,9 @@
 
     // [로그인 체크]
     // 세션에서 로그인 아이디 가져오기
-    String currentUserId = (String) session.getAttribute("loginUserId");
+    String currentUserId = (String) session.getAttribute("userID");
+    System.out.println("커뮤니티 페이지 세션 userID = " + currentUserId);
+   
     
     // ★ 테스트용
     // currentUserId = "test"; 
@@ -24,7 +26,8 @@
 <title>커뮤니티</title>
 
 <!-- 공통 CSS 연결 (헤더, 푸터 스타일 등) -->
-<link rel="stylesheet" href="1.css"> 
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">     
+		<link rel="stylesheet" href="1.css">
 
 <style>
     body {
@@ -105,7 +108,7 @@
 <div class="wrapper">
     <h2>📢 커뮤니티</h2>
 
-    <!-- [수정됨] 로그인 상태에 따라 다른 동작을 하는 글쓰기 버튼 -->
+    <!-- 로그인 상태에 따라 다른 동작을 하는 글쓰기 버튼 -->
     <% if (currentUserId != null) { %>
         <!-- 1. 로그인 상태: 글쓰기 페이지로 바로 이동 -->
         <a href="write_post.jsp" class="write-btn">✏ 글쓰기</a>
@@ -134,12 +137,14 @@
 
         <tbody>
             <%
+         		// 게시글 리스트가 비어있지 않다면 반복문 실행
                 if (posts != null && posts.size() > 0) {
                     for (Post p : posts) {
             %>
                 <tr>
                     <td><%= p.getPostId() %></td>
                     <td class="title-col">
+                    <!-- 제목을 누르면 postid를 받아 상세페이지로 이동 -->
                         <a class="title-link" href="community_post_page.jsp?postId=<%= p.getPostId() %>">
                             <%= p.getTitle() %>
                         </a>
@@ -152,6 +157,7 @@
                     }
                 } else {
             %>
+            <!-- 게시글이 없을 때 보이기 -->
                 <tr>
                     <td colspan="5" style="padding: 20px; color: #999;">게시글이 없습니다.</td>
                 </tr>
